@@ -33,6 +33,7 @@ export default function App() {
 const classes = useStyles();
 
     document.title = "Stack Overflow";
+    let API_URL = process.env.REACT_APP_API_URL; 
 
     const [questions, setQuestions] =  useState([
         {
@@ -83,9 +84,10 @@ const classes = useStyles();
         return questions.find(q => q._id === id);     
      }
 
-     const url = 'http://localhost:8080/api/v1/questions';
+
      //Fetch Questions
      useEffect(() => {
+        let url = `${API_URL}/questions`;
         const fetchData = async () => {
           const res = await fetch(url);
           const questions = await res.json();
@@ -93,7 +95,7 @@ const classes = useStyles();
           console.log(questions);
         };
         fetchData();
-      }, []);
+      }, );
 
 
     return (
