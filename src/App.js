@@ -68,18 +68,20 @@ const classes = useStyles();
         }
     ]);
 
+    //Downvote Vote
     const upVote = index => {
         const newVote = [...questions];
         newVote[index].upVote++;
         setQuestions(newVote);
     };
 
+    //upVote vote
     const downVote = index => {
         const newVote = [...questions];
         newVote[index].upVote--;
         setQuestions(newVote);
     };
-
+    //Get Question ID
     const getquestionid = (id) =>  {
         return questions.find(q => q._id === id);     
      }

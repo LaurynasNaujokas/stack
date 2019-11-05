@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 //Setup express
 
-const port = "mongodb+srv://laurynasofficial@gmail.com:19900425nu@cluster0-x2ol7.mongodb.net/test?retryWrites=true&w=majority";
+const port = (process.env.PORT || 8080);
 const app = express();
 // Parse incoming requests data
 app.use(bodyParser.json());
@@ -61,7 +61,7 @@ app.delete('/api/v1/questions/:id', (req, res) => {
 let db = {}; // Empty DB object
 
 // Require and connect the DB
-require('./db').connectDb()
+require('mongodb+srv://<username>:<password>@cluster0-x2ol7.mongodb.net/test?retryWrites=true&w=majority').connectDb()
     .then(async dbObject => {
         db = dbObject; // Save a copy of the db object for the routes above
         // When DB connection is ready, let's open the API for access
