@@ -1,0 +1,22 @@
+* {
+  text-align: center;
+}
+.navigation {
+  display : flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: row;
+  min-width: 500px;
+  justify-content: space-around;
+  margin-top: 20px;
+}
