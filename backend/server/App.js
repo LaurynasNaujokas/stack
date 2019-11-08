@@ -1,11 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 
 //Setup express
 
 const port = (process.env.PORT || 8080);
 const app = express();
+
+app.use((cors));
+
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api/v1/questions', (req, res) => {
     db.getQuestions().then(questions => res.json(questions));
 });
+
+
 
 // ****ROUTES****
 //Create a Questions
@@ -61,7 +67,7 @@ app.delete('/api/v1/questions/:id', (req, res) => {
 let db = {}; // Empty DB object
 
 // Require and connect the DB
-require('mongodb+srv://<username>:<password>@cluster0-x2ol7.mongodb.net/test?retryWrites=true&w=majority').connectDb()
+require('./db').connectDb()
     .then(async dbObject => {
         db = dbObject; // Save a copy of the db object for the routes above
         // When DB connection is ready, let's open the API for access
