@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+
 mongoose.promise = global.Promise;
+
 class Db {
     constructor(){
         const questionSchema = new mongoose.Schema({

@@ -13,6 +13,13 @@ app.use((cors));
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, PATCH, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+
 //getAll Questions
 app.get('/api/v1/questions', (req, res) => {
     db.getQuestions().then(questions => res.json(questions));
@@ -48,13 +55,13 @@ app.delete('/api/v1/questions/:id', (req, res) => {
          db.splice(index, 1);
          return res.status(200).send({
            success: 'true',
-           message: 'Todo deleted successfuly',
+           message: 'question deleted successfuly',
          });
       }
     });
       return res.status(404).send({
         success: 'false',
-        message: 'todo not found',
+        message: 'question not found',
       });
   });
 

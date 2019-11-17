@@ -33,8 +33,6 @@ const useStyles = makeStyles(({
 export default function App() {
 const classes = useStyles();
 
-    document.title = "Stack Overflow";
-
    // let API_URL = process.env.REACT_APP_API_URL; 
     const [questions, setQuestions] =  useState([
         {
@@ -99,7 +97,8 @@ const classes = useStyles();
       }, ); */
 
       useEffect(() => {
-        const url = process.env.REACT_APP_API_URL;
+        //const url = process.env.REACT_APP_API_URL;
+        const url = "http://localhost:8080/api/v1/questions"
         axios.get(url)
             .then(res => {
                 const questions = res.json();
