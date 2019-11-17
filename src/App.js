@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
 import {Router} from '@reach/router';
+import axios from 'axios';
 import AddQuestion from './components/AddQuestion';
 
 const useStyles = makeStyles(({
@@ -33,8 +34,8 @@ export default function App() {
 const classes = useStyles();
 
     document.title = "Stack Overflow";
-    //let API_URL = process.env.REACT_APP_API_URL; 
 
+   // let API_URL = process.env.REACT_APP_API_URL; 
     const [questions, setQuestions] =  useState([
         {
             id : 0,
@@ -86,17 +87,30 @@ const classes = useStyles();
         return questions.find(q => q._id === id);     
      }
 
-     //Fetch Questions
+ /*     //Fetch Questions
      useEffect(() => {
-        let url = "http://localhost:8080/api/v1/questions";
         const fetchData = async () => {
-        const res = await fetch(url);
+        const res = await fetch(API_URL);
         const questions = await res.json();
         setQuestions(questions);
-        console.log(questions);
+        console.log("Fetch end");
         }
         fetchData();
-      }, );
+      }, ); */
+
+      useEffect(() => {
+        const url = process.env.REACT_APP_API_URL;
+        axios.get(url)
+            .then(res => {
+                const questions = res.json();
+                setQuestions(questions);
+                console.log("ok");
+            })
+            .catch(err => {
+                console.log("Not okay" +  err);
+    
+            })
+    }, []);
 
 
     return (

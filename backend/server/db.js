@@ -54,7 +54,7 @@ class Db {
 // It resolves with an Db object instantiated from the class above.
 // The Db object is used for all data access in this app.
 module.exports.connectDb = async () => {
-    const url = (process.env.MONGO_URL || 'mongodb+srv://laurynas:19900425nu@cluster0-x2ol7.mongodb.net/test?retryWrites=true&w=majority');
+    const url = (process.env.MONGO_URL || 'mongodb://localhost/questions');
     return mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
             console.log("Question DB connected");

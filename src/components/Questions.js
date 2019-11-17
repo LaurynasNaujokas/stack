@@ -66,13 +66,13 @@ function Questions({questions, upVote, downVote}){
     
     let content = (!questions) ? <Loading /> : 
  
-        <Grid container justify="center" alignItems="center" xs={12}> 
+        <Grid container justify="center" alignItems="center" > 
             <Typography className={classes.Typography} variant="h3" component="h2" >Questions</Typography>
-        <Grid justify="center" alignItems="center" container item xs={12} spacing={1} className={classes.Grid}>
+        <Grid justify="center" alignItems="center" container item spacing={1} className={classes.Grid}>
         {questions.map((question, index) => {
             
             return (        
-                <Box>
+                <Box key={question.id}>
                         <Card className={classes.card}>
                                 <CardTitle 
                                     classes={classes}

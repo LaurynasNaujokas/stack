@@ -63,7 +63,7 @@ function AddQuestion(){
     const classes = useStyles();
     return(
     <div>
-        <Typography variant="p" component="h4">Submit your question</Typography>
+        <Typography>Submit your question</Typography>
         <form className={classes.container} onSubmit={handleApi}>
             <div>
                 <TextField
