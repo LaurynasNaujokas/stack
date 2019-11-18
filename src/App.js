@@ -35,8 +35,6 @@ const useStyles = makeStyles(({
 export default function App() {
 const classes = useStyles();
 
-
-
     // API url from the file '.env' OR the file '.env.development'.
     // The first file is only used in production.
     //const API_URL = process.env.REACT_APP_API_URL;
@@ -96,10 +94,9 @@ const classes = useStyles();
      
         //Fetch Questions
      useEffect(() => {
-        let API_URL = process.env.REACT_APP_API_URL;
-        let url = `${API_URL}`;
+        const url = process.env.REACT_APP_API_URL;
         const fetchData = async () => {
-        const res = await fetch(url);
+        const res = await fetch(`${url}/`);
         const questions = await res.json();
         setQuestions(questions);
         console.log("Fetch end");
