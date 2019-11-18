@@ -4,9 +4,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Navigation from "./components/Navigation";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
-import {Router} from '@reach/router';
-import axios from 'axios';
 import AddQuestion from './components/AddQuestion';
+
+import {Router} from '@reach/router';
 
 const useStyles = makeStyles(({
     root: {
@@ -33,7 +33,11 @@ const useStyles = makeStyles(({
 export default function App() {
 const classes = useStyles();
 
-   // let API_URL = process.env.REACT_APP_API_URL; 
+    // API url from the file '.env' OR the file '.env.development'.
+    // The first file is only used in production.
+    const API_URL = process.env.REACT_APP_API_URL; 
+
+   //InitialData
     const [questions, setQuestions] =  useState([
         {
             id : 0,
@@ -82,26 +86,28 @@ const classes = useStyles();
     };
     //Get Question ID
     const getquestionid = (id) =>  {
-        return questions.find(q => q._id === id);     
+        return questions.find(q => q._id === id);   
      }
 
- /*     //Fetch Questions
+     
+        //Fetch Questions
      useEffect(() => {
+        const url = `${API_URL}/questions`;
         const fetchData = async () => {
-        const res = await fetch(API_URL);
+        const res = await fetch(url);
         const questions = await res.json();
         setQuestions(questions);
         console.log("Fetch end");
         }
         fetchData();
-      }, ); */
+      }, []); 
 
-      useEffect(() => {
+    /*   useEffect(() => {
         //const url = process.env.REACT_APP_API_URL;
-        const url = "http://localhost:8080/api/v1/questions"
+        const url = "http://localhost:5000/questions"
         axios.get(url)
             .then(res => {
-                const questions = res.json();
+                const questions = res.json(res);
                 setQuestions(questions);
                 console.log("ok");
             })
@@ -109,7 +115,7 @@ const classes = useStyles();
                 console.log("Not okay" +  err);
     
             })
-    }, []);
+    }, []); */
 
 
     return (

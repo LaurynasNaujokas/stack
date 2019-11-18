@@ -29,31 +29,30 @@ function AddQuestion(){
         subtitle : '',
         category : '',
         upVotes : 0,
-        isCompleted : false,
+        answers : []
     });
 
-    const url = 'http://localhost:8080/api/v1/questions';
 
     //Posting input state to api
     const handleApi = e => { 
         e.preventDefault();
-        (async () => {
-            const rawResponse = await fetch(url, {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
+        const url = 'http://localhost:5000/questions';
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
                 title: value.title,
                 subtitle: value.subtitle,
-                category : value.category
-            })
+                category: value.category
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8 ",     
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                window.location.reload();
             });
-            const content = await rawResponse.json();
-          
-            console.log(content);
-          })();
        };
 
     const onChange = (event) => {

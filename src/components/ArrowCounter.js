@@ -6,9 +6,6 @@ import Box from "@material-ui/core/Box";
 
 import ShareButton from "./ShareButton";
 
-
-
-
 const ArrowCounter = ({upVote, downVote, index, classes,question}) => {
     return(
         <div>

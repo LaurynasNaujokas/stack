@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -34,12 +35,35 @@ const useStyles = makeStyles(({
 }))
 
 function Question({getquestionid, id}) {    
+    const[newAnswer,setNewAnswer] = useState({
+        answer : ''
+    });
     const classes = useStyles();
     const question = getquestionid(id);
 
+    const onChange = (event) => {
+        setNewAnswer({ ...newAnswer, [event.target.name] : event.target.value});
+    }
+    
+    console.log(newAnswer);
 
-    console.log(question);
-
+    const postAnswer = () => {
+        const url = 'http://localhost:5000/questions/'+ id;
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({
+                answers : [newAnswer.answer]
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8 ",     
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                window.location.reload();
+            });
+     }
     const content = (!question) ?  <Loading /> :  
 
         <Grid container space={1} justify="center" alignItems="center">
@@ -54,6 +78,23 @@ function Question({getquestionid, id}) {
                         <QuestionCardContent question={question} />
                     </CardContent>
                     <CardIcons />
+                    {question.answers.map((an, i) => {
+                        return(
+                            <div key={i}>
+                                <li>{an}</li>
+                            </div>
+                        )
+                    })}
+                    <div>
+                        <label>Submit your answer</label>
+                        <input
+                            type="text"
+                            value={newAnswer.answer}
+                            name="answer"
+                            onChange={onChange}
+                        />
+                        <input onClick={postAnswer}  type="submit" value="Submit" />
+                    </div>
                 </Card>     
             </Grid>
         </Grid>

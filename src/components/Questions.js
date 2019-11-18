@@ -63,16 +63,15 @@ function Questions({questions, upVote, downVote}){
 
     const classes = useStyles();
    
-    
     let content = (!questions) ? <Loading /> : 
  
-        <Grid container justify="center" alignItems="center" > 
+        <Grid  container justify="center" alignItems="center" > 
             <Typography className={classes.Typography} variant="h3" component="h2" >Questions</Typography>
         <Grid justify="center" alignItems="center" container item spacing={1} className={classes.Grid}>
         {questions.map((question, index) => {
             
             return (        
-                <Box key={question.id}>
+                <Box key={index}>
                         <Card className={classes.card}>
                                 <CardTitle 
                                     classes={classes}
