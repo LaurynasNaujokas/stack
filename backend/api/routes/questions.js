@@ -6,6 +6,7 @@ const Question = require('../models/question');
 
 mongoose.set('debug', true);
 
+//Route for all questions
 router.get('/', (req, res, next) => {
     Question.find()
     .exec()
@@ -21,7 +22,8 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.patch('/:questionId', async (req, res, next) => {
+//Increment Vote route
+router.put('/:questionId', async (req, res, next) => {
     Question.update(
         { _id : req.params.questionId},
         { $inc: { upVote: 1 }},
@@ -37,6 +39,7 @@ router.patch('/:questionId', async (req, res, next) => {
     next();
 });
 
+//Route for posting answers to specific questions
 router.put('/:questionId', async (req, res, next) => {
         Question.findOneAndUpdate({ _id : req.params.questionId}, {
             "$push" : {"answers" : req.body.answers}},{new: true, safe: true, upsert: true }).then((result) => {
@@ -54,6 +57,7 @@ router.put('/:questionId', async (req, res, next) => {
         });
 });
 
+
 router.patch('/:questionId', async (req, res, next) => {
     const props = req.body;
     try {
@@ -66,7 +70,7 @@ router.patch('/:questionId', async (req, res, next) => {
     }
 });
 
-
+//Route for posting new question
 router.post('/', (req, res, next) => {
     const question = new Question({
         _id: new mongoose.Types.ObjectId(),
@@ -87,6 +91,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
+//Get question by id
 router.get('/:questionId', (req, res, next) => {
     const id = req.params.questionId;
     Question.findById(id)
@@ -98,6 +103,7 @@ router.get('/:questionId', (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+//Delete question
 router.delete('/:questionId', (req, res, next) => {
     const id = req.params.questionId
     Question.remove({_id : id})

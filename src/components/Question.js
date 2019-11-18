@@ -38,6 +38,9 @@ function Question({getquestionid, id}) {
     const[newAnswer,setNewAnswer] = useState({
         answer : ''
     });
+    const[newUpVote, setNewUpVote] = useState({
+        upVote : 0
+    })
     const classes = useStyles();
     const question = getquestionid(id);
 
@@ -46,6 +49,26 @@ function Question({getquestionid, id}) {
     }
     
     console.log(newAnswer);
+
+
+
+    const increaseVote = () => {
+        const url = 'http://localhost:5000/questions/'+ id;
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({
+                upVote : newUpVote.upVote
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8 ",   
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                window.location.reload();
+            });
+     }
 
     const postAnswer = () => {
         const url = 'http://localhost:5000/questions/'+ id;
@@ -76,7 +99,8 @@ function Question({getquestionid, id}) {
                     </CardHeader>
                     <CardContent >
                         <QuestionCardContent question={question} />
-                    </CardContent>
+                    </CardContent> 
+                    <input onClick={increaseVote}  type="submit" value="Vote" />
                     <CardIcons />
                     {question.answers.map((an, i) => {
                         return(

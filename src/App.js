@@ -94,7 +94,6 @@ const classes = useStyles();
      
         //Fetch Questions
      useEffect(() => {
-        
         const fetchData = async () => {
         const res = await fetch('http://localhost:5000/questions');
         const questions = await res.json();
