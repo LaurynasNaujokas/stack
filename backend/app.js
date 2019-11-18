@@ -32,9 +32,10 @@ app.use('/questions', questionRoutes);
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('build'));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-    });
+    // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 }
 
 app.use((req, res, next) => {
