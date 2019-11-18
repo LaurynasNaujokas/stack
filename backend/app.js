@@ -15,6 +15,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://laurynas:19900425nu@c
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json());
+app.use(express.static('../build')); // Only needed when running build in production mode
+
 
 app.use((req,res,next) => {
     res.header("Access-Control-Allow-Origin", "*");
