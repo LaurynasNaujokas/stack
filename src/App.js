@@ -96,7 +96,7 @@ const classes = useStyles();
      useEffect(() => {
         const url = process.env.REACT_APP_API_URL;
         const fetchData = async () => {
-        const res = await fetch(`${url}/`);
+        const res = await fetch(`${url}questions`);
         const questions = await res.json();
         setQuestions(questions);
         console.log("Fetch end");
